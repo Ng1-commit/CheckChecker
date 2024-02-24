@@ -11,14 +11,13 @@ def generateRandomPieceSet():
     bP = ["k"]
 
     numBP = random.randint(1, 15)
-    #numWP = random.randint(1, 15)
-    numWP = 0
+    numWP = random.randint(1, 15)
 
     for i in range(numBP):
         bP.append(blackpieces.pop(random.randint(0, len(blackpieces) - 1)))
 
-    #for i in range(numWP):
-    #    wP.append(whitepieces.pop(random.randint(0, len(whitepieces) - 1)))
+    for i in range(numWP):
+        wP.append(whitepieces.pop(random.randint(0, len(whitepieces) - 1)))
 
     return wP, bP
 
@@ -61,25 +60,25 @@ def isWhiteKingInCheck(board):
             else:
                 continue
 
-    #print(chr(WKing[0] +96) + ',' + str(WKing[1]))
-    print(WKing)
+    print(chr(WKing[0] +96) + ',' + str(WKing[1]))
+    #print(WKing)
 
-    #file = isKingInCheckOnFile(board, WKing, colour) 
-    #if file == True:
-    #	print('Rank')
-    #	return file
-    #rank = isKingInCheckOnRank(board, WKing, colour)
-    #if rank == True:
-    #	print('File')
-    #	return rank
+    file = isKingInCheckOnFile(board, WKing, colour) 
+    if file == True:
+    	print('Rank')
+    	return file
+    rank = isKingInCheckOnRank(board, WKing, colour)
+    if rank == True:
+    	print('File')
+    	return rank
     diagonal = isKingInCheckOnDiagonal(board, WKing, colour) 
     if diagonal == True:
     	print('Diagonal')
     	return diagonal
-    #knight = isKingInCheckFromKnight(board, WKing, colour)
-    #if knight == True:
-    #	print('Knight')
-    #	return knight
+    knight = isKingInCheckFromKnight(board, WKing, colour)
+    if knight == True:
+    	print('Knight')
+    	return knight
     return isKingInCheck
 
 def isKingInCheckOnFile(board, kingPos, colour):
