@@ -142,7 +142,7 @@ def isKingInCheckOnDiagonal(board, kingPos, colour): # to fix on a keyboard
             if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
             elif board[(currentKingPos[0],  currentKingPos[1])] in ['q', 'b']:
-                print(str(kingPos) + 'below left')
+                print(chr(currentKingPos[0] +96) + ',' + str(currentKingPos[1])  + 'below and left')
                 return True
             else:
                 return False
@@ -155,7 +155,7 @@ def isKingInCheckOnDiagonal(board, kingPos, colour): # to fix on a keyboard
             if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
             elif board[(currentKingPos[0],  currentKingPos[1])] in ['q', 'b']:
-                print(str(currentKingPos) + 'below right')
+                print(chr(currentKingPos[0] +96) + ',' + str(currentKingPos[1])  + 'below and right')
                 return True
             else:
                 return False
@@ -171,7 +171,7 @@ def isKingInCheckOnDiagonal(board, kingPos, colour): # to fix on a keyboard
                 continue
             elif board[(currentKingPos[0],  currentKingPos[1])] in possiblePieces:
                 print(possiblePieces)
-                print(str(currentKingPos)  + 'above and right')
+                print(chr(currentKingPos[0] +96) + ',' + str(currentKingPos[1])  + 'above and right')
                 return True
             else:
                 return False
@@ -187,7 +187,7 @@ def isKingInCheckOnDiagonal(board, kingPos, colour): # to fix on a keyboard
                 continue
             elif board[(currentKingPos[0],  currentKingPos[1])] in possiblePieces:
                 print(possiblePieces)
-                print(str(currentKingPos)  + 'above and left')
+                print(chr(currentKingPos[0] +96) + ',' + str(currentKingPos[1])  + 'above and left')
                 return True
             else:
                 return False
