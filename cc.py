@@ -2,19 +2,23 @@ import random
 
 def generateRandomPieceSet():
     whitepieces = ['R', 'N', 'B', 'Q', 'B', 'N', 'R', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P']
-    blackpieces = [item.lower() for item in whitepieces]
+    blackpieces = ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p']
+    
+    
+    #blackpieces = [item.lower() for item in whitepieces]
 
     wP = ["K"]
     bP = ["k"]
 
     numBP = random.randint(1, 15)
-    numWP = random.randint(1, 15)
+    #numWP = random.randint(1, 15)
+    numWP = 0
 
     for i in range(numBP):
         bP.append(blackpieces.pop(random.randint(0, len(blackpieces) - 1)))
 
-    for i in range(numWP):
-        wP.append(whitepieces.pop(random.randint(0, len(whitepieces) - 1)))
+    #for i in range(numWP):
+    #    wP.append(whitepieces.pop(random.randint(0, len(whitepieces) - 1)))
 
     return wP, bP
 
@@ -57,117 +61,134 @@ def isWhiteKingInCheck(board):
             else:
                 continue
 
-    print(chr(WKing[0] +96) + ',' + str(WKing[1]))
-    
-    file = isKingInCheckOnFile(board, WKing, colour) 
-    if file == True:
-    	print('Rank')
-    	return file
-    rank = isKingInCheckOnRank(board, WKing, colour)
-    if rank == True:
-    	print('File')
-    	return rank
+    #print(chr(WKing[0] +96) + ',' + str(WKing[1]))
+    print(WKing)
+
+    #file = isKingInCheckOnFile(board, WKing, colour) 
+    #if file == True:
+    #	print('Rank')
+    #	return file
+    #rank = isKingInCheckOnRank(board, WKing, colour)
+    #if rank == True:
+    #	print('File')
+    #	return rank
     diagonal = isKingInCheckOnDiagonal(board, WKing, colour) 
     if diagonal == True:
     	print('Diagonal')
     	return diagonal
-    knight = isKingInCheckFromKnight(board, WKing, colour)
-    if knight == True:
-    	print('Knight')
-    	return knight
+    #knight = isKingInCheckFromKnight(board, WKing, colour)
+    #if knight == True:
+    #	print('Knight')
+    #	return knight
     return isKingInCheck
 
 def isKingInCheckOnFile(board, kingPos, colour):
-    
-    kingPos = list(kingPos)
+    currentKingPos = list(kingPos)
     if colour == 'w':
         #check to left
-        while kingPos[0] - 1 > 0:
-            kingPos[0] -= 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        while currentKingPos[0] - 1 > 0:
+            currentKingPos[0] -= 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'r']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in [ 'q', 'r']:
                 return True
             else:
                 return False
         #check to right
-        while kingPos[0] + 1 < 8:
-            kingPos[0] += 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        #reset king pos 
+        currentKingPos = list(kingPos)
+        while currentKingPos[0] + 1 < 8:
+            currentKingPos[0] += 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'r']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in [ 'q', 'r']:
                 return True
             else:
                 return False
 
 def isKingInCheckOnRank(board, kingPos, colour): 
     
-    kingPos = list(kingPos)
+    currentKingPos = list(kingPos)
+
     if colour == 'w':
         #check below
-        while kingPos[1] - 1 > 0 and kingPos[0] - 1 > 0:
-            kingPos[0] -= 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        while currentKingPos[1] - 1 > 0 and currentKingPos[0] - 1 > 0:
+            currentKingPos[0] -= 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'r']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in [ 'q', 'r']:
                 return True
             else:
                 return False
         #check above
-        while kingPos[0] + 1 <= 8:
-            kingPos[0] += 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        #reset king pos 
+        currentKingPos = list(kingPos)
+        while currentKingPos[0] + 1 <= 8:
+            currentKingPos[0] += 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'r']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in [ 'q', 'r']:
                 return True
             else:
                 return False
 
 def isKingInCheckOnDiagonal(board, kingPos, colour): # to fix on a keyboard
  
-    kingPos = list(kingPos)
+    currentKingPos = list(kingPos)
     if colour == 'w':
         #check below to the left
-        while kingPos[0] - 1 > 0 and kingPos[1] - 1 > 0:
-            kingPos[0] -= 1
-            kingPos[1] -= 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        while currentKingPos[0] - 1 > 0 and currentKingPos[1] - 1 > 0:
+            currentKingPos[0] -= 1
+            currentKingPos[1] -= 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'b']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in ['q', 'b']:
+                print(str(kingPos) + 'below left')
                 return True
             else:
                 return False
         #check below to the right
-        while kingPos[0] - 1 > 0 and kingPos[1] + 1 < 8:
-            kingPos[0] -= 1
-            kingPos[1] += 1
-            if board[(kingPos[0], kingPos[1])] == '': 
+        #reset king pos 
+        currentKingPos = list(kingPos)
+        while currentKingPos[0] +1  <8 and currentKingPos[1] - 1 >0:
+            currentKingPos[0] += 1
+            currentKingPos[1] -= 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '': 
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in [ 'q', 'b']:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in ['q', 'b']:
+                print(str(currentKingPos) + 'below right')
                 return True
             else:
                 return False
         #check above to the right
-        while kingPos[0] + 1 < 8 and kingPos[1] + 1 < 8:
-            kingPos[0] += 1
-            kingPos[1] += 1
-            possiblePieces = ['q', 'b', 'p']
-            if board[(kingPos[0], kingPos[1])] == '':
+        #reset king pos 
+        currentKingPos = list(kingPos)
+        possiblePieces = ['q', 'b', 'p']
+        while currentKingPos[0] + 1 < 8 and currentKingPos[1] + 1 < 8:
+            currentKingPos[0] += 1
+            currentKingPos[1] += 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '':
                 possiblePieces = ['q', 'b']
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in possiblePieces:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in possiblePieces:
+                print(possiblePieces)
+                print(str(currentKingPos)  + 'above and right')
                 return True
             else:
-                break
+                return False
         #check above to the left
-        while kingPos[0] + 1 < 8 and kingPos[1] - 1 > 0:
-            kingPos[0] += 1
-            kingPos[1] -= 1
-            possiblePieces = ['q', 'b', 'p']
-            if board[(kingPos[0], kingPos[1])] == '':
+        #reset king pos 
+        currentKingPos = list(kingPos)
+        possiblePieces = ['q', 'b', 'p']
+        while currentKingPos[0] - 1 < 0 and currentKingPos[1] + 1 > 8:
+            currentKingPos[0] -= 1
+            currentKingPos[1] += 1
+            if board[(currentKingPos[0], currentKingPos[1])] == '':
                 possiblePieces = ['q', 'b']
                 continue
-            elif board[(kingPos[0],  kingPos[1])] in possiblePieces:
+            elif board[(currentKingPos[0],  currentKingPos[1])] in possiblePieces:
+                print(possiblePieces)
+                print(str(currentKingPos)  + 'above and left')
                 return True
             else:
                 return False
@@ -207,11 +228,13 @@ def printBoard(board):
         print()
 
 def test():
-	pieces = generateRandomPieceSet()
-	board = generateboard()
-	placepieces(board, pieces)
-	printBoard(board)
-	return isWhiteKingInCheck(board)
+    pieces = generateRandomPieceSet()
+    board = generateboard()
+    #board = {(1, 1): '', (1, 2): 'p', (1, 3): '', (1, 4): '', (1, 5): 'p', (1, 6): '', (1, 7): 'p', (1, 8): '', (2, 1): '', (2, 2): '', (2, 3): '', (2, 4): '', (2, 5): '', (2, 6): 'p', (2, 7): 'p', (2, 8): '', (3, 1): '', (3, 2): 'K', (3, 3): 'p', (3, 4): '', (3, 5): '', (3, 6): '', (3, 7): 'p', (3, 8): '', (4, 1): '', (4, 2): '', (4, 3): '', (4, 4): '', (4, 5): '', (4, 6): '', (4, 7): '', (4, 8): '', (5, 1): '', (5, 2): 'p', (5, 3): '', (5, 4): '', (5, 5): '', (5, 6): '', (5, 7): '', (5, 8): '', (6, 1): '', (6, 2): '', (6, 3): '', (6, 4): '', (6, 5): '', (6, 6): 'p', (6, 7): '', (6, 8): '', (7, 1): '', (7, 2): '', (7, 3): '', (7, 4): '', (7, 5): '', (7, 6): '', (7, 7): '', (7, 8): '', (8, 1): '', (8, 2): '', (8, 3): 'k', (8, 4): '', (8, 5): '', (8, 6): 'p', (8, 7): 'p', (8, 8): ''}
+    placepieces(board, pieces)
+    print(str(board))
+    printBoard(board)
+    return isWhiteKingInCheck(board)
 	
 isInCheck = False
 while isInCheck == False:
